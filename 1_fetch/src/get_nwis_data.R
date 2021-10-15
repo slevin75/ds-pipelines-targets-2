@@ -31,12 +31,12 @@ download_nwis_site_data <- function(site_num,outdir, parameterCd, startDate, end
                            parameterCd = parameterCd, startDate = startDate, endDate = endDate)
 
   # -- simulating a failure-prone web-sevice here, do not edit --
- # set.seed(Sys.time())
- # if (sample(c(T,F,F,F), 1)){
- #   stop(site_num, ' has failed due to connection timeout. Try tar_make() again')
- # }
-  # -- end of do-not-edit block
- # filepath<-file.path(outdir,paste0(site_num, ".csv"))
+  set.seed(Sys.time())
+ if (sample(c(T,F,F,F), 1)){
+   stop(site_num, ' has failed due to connection timeout. Try tar_make() again')
+ }
+# -- end of do-not-edit block
+# filepath<-file.path(outdir,paste0(site_num, ".csv"))
  # write_csv(data_out, file = filepath)
  # return(filepath)
   return(data_out)
