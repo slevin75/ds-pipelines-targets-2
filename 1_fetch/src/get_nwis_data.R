@@ -1,14 +1,14 @@
 
-compile_nwis_data <- function(filedirs){
+compile_nwis_data <- function(sites){
   ##this will take a list of file names, created by download_nwis_site_data and 
   ##open them up
   data_out<-data.frame()
   # loop through files to open 
-  for (d in seq_along(filedirs)){
+  for (d in seq_along(sites)){
     
     # read the downloaded data and append it to the existing data.frame
-    these_data <- read_csv(filedirs[d], col_types = 'ccTdcc')
-    data_out <- bind_rows(data_out, these_data)
+   # these_data <- read_csv(filedirs[d], col_types = 'ccTdcc')
+    data_out <- bind_rows(data_out, sites[[d]])
   }
   return(data_out)
 }
@@ -31,14 +31,15 @@ download_nwis_site_data <- function(site_num,outdir, parameterCd, startDate, end
                            parameterCd = parameterCd, startDate = startDate, endDate = endDate)
 
   # -- simulating a failure-prone web-sevice here, do not edit --
-  set.seed(Sys.time())
-  if (sample(c(T,F,F,F), 1)){
-    stop(site_num, ' has failed due to connection timeout. Try tar_make() again')
-  }
+ # set.seed(Sys.time())
+ # if (sample(c(T,F,F,F), 1)){
+ #   stop(site_num, ' has failed due to connection timeout. Try tar_make() again')
+ # }
   # -- end of do-not-edit block
-  filepath<-file.path(outdir,paste0(site_num, ".csv"))
-  write_csv(data_out, file = filepath)
-  return(filepath)
+ # filepath<-file.path(outdir,paste0(site_num, ".csv"))
+ # write_csv(data_out, file = filepath)
+ # return(filepath)
+  return(data_out)
 }
 
 
